@@ -71,14 +71,15 @@ o.upvoteComment = function(post, comment) {
       comment.upvotes += 1;
     });
 };
+return o;
 }]);
+
 
 app.controller('MainCtrl', [
     '$scope',
     'posts',
     function($scope, posts) {
-
-      $scope.posts = posts.posts;
+    $scope.posts = posts.posts;
 
 $scope.addPost = function(){
   if(!$scope.title || $scope.title === '') { return; }
@@ -95,7 +96,7 @@ $scope.addPost = function(){
   posts.upvote(post);
 };
       
-}])
+}]);
   
 app.controller('PostsCtrl', [
 '$scope',
