@@ -1,10 +1,14 @@
-<<<<<<< HEAD
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
+var mongoose = require('mongoose');
+require('./models/Posts');
+require('./models/Comments');
+mongoose.connect('mongodb://localhost/news');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -59,97 +63,8 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
-=======
-var app = angular.module('flapperNews', ['ui.router']);
 
-app.config([
-  '$stateProvider',
-  '$urlRouterProvider',
 
-  function($stateProvider, $urlRouterProvider) {
 
-    $stateProvider
-      .state('home', {
-        url: '/home',
-        templateUrl: '/home.html',
-        controller: 'MainCtrl'
-      })
-      .state('posts', {
-        url: '/posts/{id}',
-        templateUrl: '/posts.html',
-        controller: 'PostsCtrl'
-      });
 
-    $urlRouterProvider.otherwise('home');
-  }
-]);
 
-app.factory('posts', [
-  function() {
-
-    var o = {
-      posts: []
-    };
-    return o;
-
-  }
-])
-
-app.controller('MainCtrl', [
-    '$scope',
-    'posts',
-    function($scope, posts) {
-
-      $scope.posts = posts.posts;
-
-      $scope.addPost = function() {
-        if ($scope.title === '') {
-          return
-        };
-        $scope.posts.push({
-          title: $scope.title,
-          link: $scope.link,
-          upvotes: 0,
-          comments: [{
-            author: 'Joe',
-            body: 'Cool post!',
-            upvotes: 0
-          }, {
-            author: 'Bob',
-            body: 'Great idea but everything is wrong!',
-            upvotes: 0
-          }]
-        });
-        $scope.title = '';
-        $scope.link = '';
-      }
-
-      $scope.incrementUpvotes = function(post) {
-        post.upvotes += 1;
-      }
-    }
-  ])
-  .controller('PostsCtrl', [
-    '$scope',
-    '$stateParams',
-    'posts',
-    function($scope, $stateParams, posts) {
-      $scope.post = posts.posts[$stateParams.id];
-
-      $scope.addComment = function() {
-        if ($scope.body === '') {
-          return
-        };
-        $scope.posts.comments.push({
-          body: $scope.body,
-          author: 'user',
-          upvotes: 0,
-        });
-
-        $scope.body = '';
-
-      }
-
-    }
-  ]);
->>>>>>> 593b7c6e3faf48f180ce047bffb22d33c0737cc8
